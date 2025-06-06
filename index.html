@@ -63,7 +63,16 @@
     </div>
 </body>
 <script>
-  const answer = "CRANE"; //todo make this random word
+  const randomValue =  Math.floor(Math.random() * 2) + 1;
+  const answer = ""; //todo make this random word
+  //Random
+  if(randomValue === 1){
+    const answer = "CRANE"
+  }
+  if(randomValue === 2){
+    const answer = "SWORD"
+  }
+
   const board = document.getElementById('board');
   const textBox = document.querySelector('input');
   const submitButton = document.querySelector('button');
@@ -99,6 +108,7 @@
       textBox.remove();
       return
     }
+    textBox.value = "";
   })
 
     function writeGuess(guess){
@@ -132,9 +142,31 @@
         answerAsArray.push(letter);
     }
     //todo find exact matches first
-    //go to slide 26 to continue///////////////////////////////////////////////////////
+    //find exact matches
+      for (let i = 0; i < guess.length; i++){
+        let letter = guess[i];
+        if (letter === answer[i]){
+          answerAsArray[i] = null; //remove letter to prevent matching it as yellow, too
+          matchArray[i] = 2; //indicate we found match
+        }
+      }
     //todo find in-word matches and misses
+    //find in-word matches and misses
+      for(let i = 0; i < guess.length; i++){
+        let letter = guess[i];
+        let index = answerAsArray.indexOf(letter);
 
+        //if letter not in remaining letters, move on to next letter
+        if (index === -1){
+          continue
+        }
+
+        //remove letter to prevent matching in other positions
+        answerAsArray[index] = null;
+        //mark it yellow as it is i9n the word but not in the correct spot
+        matchArray[i] = 1
+      }
+      return matchArray
   }
 </script>
 </html>
