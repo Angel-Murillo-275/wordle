@@ -54,24 +54,41 @@
             </tr>
             </tbody>
           </table>
-          <div class="input-container">
+          <div class="input-container" id="input_container">
             <input type="text" maxlenght="5" minlenght="5">
             <button>Enter!</button>
+            <button id="reset">Restart!</button>
           </div>
           <p id="game-over"></p>
         </div>
     </div>
 </body>
 <script>
-  const randomValue =  Math.floor(Math.random() * 2) + 1;
-  const answer = ""; //todo make this random word
+  const randomValue =  Math.floor(Math.random() * 7) + 1;
+  if (randomValue === 1){
+    randomWord = "CRANE"
+  }
+  if (randomValue === 2){
+    randomWord = "SWORD"
+  }
+  if (randomValue === 3){
+    randomWord = "HAPPY"
+  }
+  if(randomValue === 4){
+    randomWord = "LAKES"
+  }
+  if(randomValue === 5){
+    randomWord = "LUCKY"
+  }
+  if(randomValue === 6){
+    randomWord = "MAKER"
+  }
+  if(randomValue === 7){
+    randomWord = "GREAT"
+  }
+
+  const answer = randomWord //todo make this random word
   //Random
-  if(randomValue === 1){
-    const answer = "CRANE"
-  }
-  if(randomValue === 2){
-    const answer = "SWORD"
-  }
 
   const board = document.getElementById('board');
   const textBox = document.querySelector('input');
@@ -92,7 +109,6 @@
 
     currentGuessNumber++
 
-    //todo check for win
     //check for win
     if (guess.toUpperCase() === answer.toUpperCase()) {
       gameOverMessage.textContent = 'You won!!!';
@@ -100,7 +116,6 @@
       textBox.remove();
       return
     }
-    //todo check for loss
     //check for loss
     if (currentGuessNumber >= board.children.length) {
       gameOverMessage.textContent = `You lost :( The word was ${answer}.`;
@@ -168,5 +183,12 @@
       }
       return matchArray
   }
+  //Reset button
+  const reset = document.getElementById('reset')
+
+  reset.addEventListener('click', function(){
+    location.reload();
+  })
+
 </script>
 </html>
